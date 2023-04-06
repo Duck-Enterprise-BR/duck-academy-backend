@@ -1,6 +1,5 @@
-from api.company.dtos.company_dtos import CompanyCreateDto
-from api.company.company_repository import CompanyRepository
-
+from api.module.company.dtos.company_dtos import CompanyCreateDto
+from api.module.company.company_repository import CompanyRepository
 
 class CompanyService:
     def list():

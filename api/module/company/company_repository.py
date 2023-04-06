@@ -1,5 +1,5 @@
 from api.database.database_base import Session
-from api.company.company_model import CompanyModel
+from api.module.company.company_model import CompanyModel
 
 class CompanyRepository:
     def list(self):

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from api.company import company_service
-from api.company.dtos import company_dtos
+from api.module.company import company_service
+from api.module.company.dtos import company_dtos
 
 router = APIRouter()
 companyService = company_service.CompanyService

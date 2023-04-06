@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.company import company_controller
+from api.module.company import company_controller
 from config import Settings
 
 settings = Settings()

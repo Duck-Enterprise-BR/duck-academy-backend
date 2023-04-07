@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 class ResponseMessage:
     def getAlreadyCreated():
         return "Already Created"
@@ -10,3 +11,6 @@ class ResponseMessage:
     
     def getInvalidId():
         return "Invalid id"
+    
+    def ErrorHandleResponse(status_code: int, message: dict[str, str]):
+        raise HTTPException(status_code, message)

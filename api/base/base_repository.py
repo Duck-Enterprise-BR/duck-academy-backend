@@ -12,6 +12,7 @@ class BaseRepository:
     
     def save(self, item):
         session = Session()
+        print(item)
         data = self.__model(item)
         session.add(data)
         session.commit()
@@ -43,10 +44,18 @@ class BaseRepository:
     def get_by_id(self, id: str):
         try:
             session = Session()
-            return session.query(self.__model).filter_by(id=id).one()
+            print(self.__model)
+            return session.query(self.__model).filter(self.__model.id == id).one()
         except:
-            return False
-            
+            return {}
+    
+    def count_by_id(self, id):
+        print(id)
+        try:
+            session = Session()
+            return int(session.query(self.__model).filter_by(id=id).count())
+        except:
+            return 0
     
     def delete_by_id(self, id):
         session = Session()

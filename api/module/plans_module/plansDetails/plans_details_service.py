@@ -12,7 +12,7 @@ class PlansDetailsService:
         return self.plansDetailsRepository.list()
     
     def create(self, item: PlansDetailsCreateDto):
-        checkName = self.plansDetailsRepository.checkAlreadyCreate(item.name)
+        checkName = self.plansDetailsRepository.check_already_create(item.name)
         
         if(checkName):
             raise HTTPException(400, ResponseMessage.getAlreadyCreated())
@@ -20,12 +20,14 @@ class PlansDetailsService:
         return self.plansDetailsRepository.save(item)
     
     def update(self, id: str, item: PlansDetailsUpdateDto):
-        validUuid = self.uuidUtils.validUuid(id)
+        validUuid = UuidUtils.validUuid(id)
 
         if(validUuid == False):
             raise HTTPException(400, ResponseMessage.getInvalidId())
         
         oldItem = self.plansDetailsRepository.get_by_id(id)
+
+        print(oldItem)
 
         if(oldItem == False):
             raise HTTPException(404, ResponseMessage.getNotFound())

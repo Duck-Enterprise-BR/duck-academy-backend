@@ -1,6 +1,5 @@
-from api.module.plans_module.plans.plans_model import PlansModel
 from api.database.database_base import Session
-from api.module.plans_module.plans.plans_model import PlansModel
+from api.base.base_models import PlansModel
 from api.module.plans_module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
 
 class PlansRepository:
@@ -24,7 +23,7 @@ class PlansRepository:
         session.commit()
         return item
     
-    def checkAlreadyCreateById(self, id: str):
+    def checkAlreadyCreateById(self, id):
         session = Session()
         return int(session.query(PlansModel)
         .filter(PlansModel.id == id)

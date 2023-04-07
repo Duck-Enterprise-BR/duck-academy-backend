@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from api.module.plansDetails import plans_details_service
-from api.module.plansDetails.dtos.plans_details_dto import PlansDetailsCreateDto, PlansDetailsUpdateDto
+from api.module.plans_module.plansDetails import plans_details_service
+from api.module.plans_module.plansDetails.dtos.plans_details_dto import PlansDetailsCreateDto, PlansDetailsUpdateDto
 
 plan_details_routes_name = "/plans-details"
 plans_details_routes_api = APIRouter()

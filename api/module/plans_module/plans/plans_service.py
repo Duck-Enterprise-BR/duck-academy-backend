@@ -1,5 +1,5 @@
-from api.module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
-from api.module.plans.plans_repository import PlansRepository
+from api.module.plans_module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
+from api.module.plans_module.plans.plans_repository import PlansRepository
 from api.utils.uuid import UuidUtils
 from api.utils.response_message import ResponseMessage
 from fastapi import HTTPException

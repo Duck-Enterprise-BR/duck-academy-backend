@@ -1,7 +1,7 @@
-from api.module.plans.plans_model import PlansModel
+from api.module.plans_module.plans.plans_model import PlansModel
 from api.database.database_base import Session
-from api.module.plans.plans_model import PlansModel
-from api.module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
+from api.module.plans_module.plans.plans_model import PlansModel
+from api.module.plans_module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
 
 class PlansRepository:
     def list(self):

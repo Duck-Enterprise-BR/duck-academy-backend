@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from api.module.plans.plans_service import PlansService
-from api.module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
+from api.module.plans_module.plans.plans_service import PlansService
+from api.module.plans_module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
 
 planRouterPrefix = "/plans"
 plansRouter = APIRouter()

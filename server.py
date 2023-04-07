@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from api.module.company import company_controller
-from api.module.plans import plans_controller
-from api.module.plansDetails import plans_details_controller
+from api.module.plans_module.plans import plans_controller
+from api.module.plans_module.plansDetails import plans_details_controller
 from config import Settings
 
 settings = Settings()

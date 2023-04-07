@@ -1,11 +1,31 @@
 from api.database.database_base import Session
-from api.base.base_models import PlansModel
+from api.base.base_models import PlansModel, PlansDetailsModel, PlansRelationshipModel
 from api.module.plans_module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
+
+""" for x in session.query( Department, Employee)
+    .filter(Link.department_id == Department.id, Link.employee_id == Employee.id)
+    .order_by(Link.department_id)
+    .all():
+   print ("Department: {} Name: {}".format(x.Department.name, x.Employee.name)) """
 
 class PlansRepository:
     def list(self):
+        items = []
         session = Session()
-        return session.query(PlansModel).filter(PlansModel.enabled == True).all()
+        query = session.query(PlansRelationshipModel,PlansModel).filter(PlansRelationshipModel.plan_id == PlansModel.id, PlansRelationshipModel.plans_details_id == PlansDetailsModel.id).all()
+
+        print(query)
+
+        for x in query:
+            print("{}".format(x.PlansModel.name))
+            items.append({
+                "plan": x.PlansModel.name,
+                "plan_ids": x.PlansRelationshipModel.plans_details_id
+            })
+
+        return items
+        
+    
     
     def save(self, item: PlansCreateDto):
         session = Session()

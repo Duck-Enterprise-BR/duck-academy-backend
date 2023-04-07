@@ -1,9 +1,12 @@
 class ResponseMessage:
-    def getAlreadyCreated(self):
+    def getAlreadyCreated():
         return "Already Created"
     
-    def getInvalidParams(self):
+    def getInvalidParams():
         return "Invalid params"
     
-    def getNotFound(self):
+    def getNotFound():
         return "Not found"
+    
+    def getInvalidId():
+        return "Invalid id"

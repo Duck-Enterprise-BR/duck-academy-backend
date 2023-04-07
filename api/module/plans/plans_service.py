@@ -5,7 +5,6 @@ from api.utils.response_message import ResponseMessage
 from fastapi import HTTPException
 
 class PlansService:
-    responseMessage = ResponseMessage()
     plansRepository = PlansRepository()
     uuidUtils = UuidUtils()
     
@@ -16,7 +15,7 @@ class PlansService:
         checkAlreadyCreate = self.plansRepository.checkAlreadyCreate(item.name)
 
         if(checkAlreadyCreate >= 1):
-            raise HTTPException(status_code=400, detail=self.responseMessage.getAlreadyCreated())
+            raise HTTPException(status_code=400, detail=ResponseMessage.getAlreadyCreated())
 
         return self.plansRepository.save(item)
     
@@ -33,10 +32,10 @@ class PlansService:
         validUuid = self.uuidUtils.validUuid(id)
 
         if(validUuid == False):
-            raise HTTPException(status_code=400, detail=self.responseMessage.getInvalidParams())
+            raise HTTPException(status_code=400, detail=ResponseMessage.getInvalidParams())
 
         checkAlreadyExists = self.plansRepository.checkAlreadyCreateById(id)
 
         if (checkAlreadyExists == 0):
-            raise HTTPException(status_code=404, detail=self.responseMessage.getNotFound())
+            raise HTTPException(status_code=404, detail=ResponseMessage.getNotFound())
 

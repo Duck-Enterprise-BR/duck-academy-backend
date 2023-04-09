@@ -10,3 +10,4 @@ class Settings():
     db_database = data['db_database']
     db_host = data['db_host']
     db_port = data['db_port']
+    access_token = data["access_token"]

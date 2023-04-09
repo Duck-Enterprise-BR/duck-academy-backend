@@ -3,5 +3,5 @@ from api.base.base_models import PlansDetailsModel
 
 class PlansDetailsRepository(BaseRepository):
     def __init__(self) -> None:
-        super().__init__(PlansDetailsModel)
+        super().__init__(PlansDetailsModel, "plans_details")
     

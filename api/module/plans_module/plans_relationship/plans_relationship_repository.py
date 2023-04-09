@@ -4,7 +4,7 @@ from api.database.database_base import Session
 
 class PlansRelationshipRepository(BaseRepository):
     def __init__(self) -> None:
-        super().__init__(PlansRelationshipModel)
+        super().__init__(PlansRelationshipModel, "plans_relationship")
 
     def check_already_create_relationship(self, plan_id: str, plan_details_id: str):
         session = Session()

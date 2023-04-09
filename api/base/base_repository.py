@@ -1,8 +1,10 @@
 from api.database.database_base import Session
+from sqlalchemy import text
 
 class BaseRepository:
-    def __init__(self, model) -> None:
+    def __init__(self, model, table: str) -> None:
         self.__model = model
+        self.table = table
 
     def list(self):
         session = Session()
@@ -50,10 +52,22 @@ class BaseRepository:
             return {}
     
     def count_by_id(self, id):
-        print(id)
         try:
             session = Session()
             return int(session.query(self.__model).filter_by(id=id).count())
+        except:
+            return 0
+        
+    def count_by_field(self, field, value):
+        try:
+            session = Session()
+            query = {}
+            query[field] = value
+            query = text("SELECT COUNT(*) FROM {} where {} = '{}';".format(self.table, field, value))
+            resultQuery = session.execute(query)
+
+            for row in resultQuery:
+                return int(str(row._data)[1])
         except:
             return 0
     

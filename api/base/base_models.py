@@ -10,7 +10,7 @@ Base = declarative_base()
 class PlansRelationshipModel(Base):
     __tablename__ = "plans_relationship"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id = Column(UUID(as_uuid=True), primary_key=True)
     plan_id = Column(UUID(as_uuid=True), ForeignKey("plans.id"), primary_key=True)
     plans_details_id = Column(UUID(as_uuid=True), ForeignKey("plans_details.id"), primary_key=True)
     enabled = Column(Boolean(), default=True)
@@ -18,6 +18,7 @@ class PlansRelationshipModel(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     def __init__(self, item) -> None:
+        self.id = uuid.uuid4()
         self.plan_id = item.plan_id
         self.plans_details_id = item.plans_details_id
 
@@ -38,19 +39,20 @@ class PlansModel(Base):
 class PlansDetailsModel(Base):
     __tablename__ = "plans_details"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id = Column(UUID(as_uuid=True), primary_key=True)
     name = Column(String, nullable=False)
     enabled = Column(Boolean, nullable=False, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     def __init__(self, item) -> None:
+        self.id = uuid.uuid4()
         self.name = item.name
 
 class HierarchyModel(Base):
     __tablename__ = "hierarchy"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    id = Column(UUID(as_uuid=True), primary_key=True)
     name = Column(String, nullable=False)
     sub_tag = Column(String, nullable=False)
     level = Column(Integer, nullable=False)
@@ -59,6 +61,7 @@ class HierarchyModel(Base):
     deleted_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     def __init__(self, item) -> None:
+        self.id = uuid.uuid4()
         self.name = item.name
         self.sub_tag = item.sub_tag
         self.level = item.level

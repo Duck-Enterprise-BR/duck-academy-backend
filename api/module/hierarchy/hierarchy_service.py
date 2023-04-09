@@ -10,9 +10,10 @@ class HierarchyService:
         return self.hierarchyRepository.list()
     
     def save(self, item: HierarchyCreateDto):
+        print(item.name)
         self.checkName(item.name)
 
-        return item
+        return self.hierarchyRepository.save(item)
     
     def update(self, id, item: HierarchyUpdateDto):
         self.checkIfValidId(id)

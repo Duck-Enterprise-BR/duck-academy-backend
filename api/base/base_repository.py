@@ -63,7 +63,7 @@ class BaseRepository:
             session = Session()
             query = {}
             query[field] = value
-            query = text("SELECT COUNT(*) FROM {} where {} = '{}';".format(self.table, field, value))
+            query = text("SELECT COUNT(*) FROM {} where {} = '{}' AND enabled='t';".format(self.table, field, value))
             resultQuery = session.execute(query)
 
             for row in resultQuery:

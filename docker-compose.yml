@@ -20,6 +20,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: '123'
     ports:
       - "5433:80"
+    volumes:
+      - pg_admin:/var/lib/pgadmin
     networks:
       - duck_academy
     depends_on:
@@ -31,3 +33,4 @@ networks:
 
 volumes:
   db_data:
+  pg_admin:

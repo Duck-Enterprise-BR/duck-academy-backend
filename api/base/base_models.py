@@ -58,12 +58,27 @@ class HierarchyModel(Base):
     level = Column(Integer, nullable=False)
     enabled = Column(Boolean, nullable=False, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    deleted_at = Column(DateTime(timezone=True), onupdate=func.now())
+    update_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     def __init__(self, item) -> None:
         self.id = uuid.uuid4()
         self.name = item.name
         self.sub_tag = item.sub_tag
         self.level = item.level
+
+class PermissionModel(Base):
+    __tablename__ = "permission"
+
+    id = Column(UUID(as_uuid=True), primary_key=True)
+    tag = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    enabled = Column(Boolean, nullable=False, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    def __init__(self, item) -> None:
+        self.id = uuid.uuid4()
+        self.name = item.name
+        self.tag = item.tag
 
 Base.metadata.create_all(engine)

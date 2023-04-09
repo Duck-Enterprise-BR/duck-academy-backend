@@ -58,12 +58,16 @@ class BaseRepository:
         except:
             return 0
         
-    def count_by_field(self, field, value):
+    def count_by_field(self, field, value, notId: str = ""):
         try:
             session = Session()
-            query = {}
-            query[field] = value
-            query = text("SELECT COUNT(*) FROM {} where {} = '{}' AND enabled='t';".format(self.table, field, value))
+            query = ""
+
+            if notId == "":
+                query = text("SELECT COUNT(*) FROM {} where {} = '{}' AND enabled='t';".format(self.table, field, value))
+            else:
+                query = text("SELECT COUNT(*) FROM {} where {} = '{}' AND enabled='t' AND id != {};".format(self.table, field, value, notId))
+            
             resultQuery = session.execute(query)
 
             for row in resultQuery:

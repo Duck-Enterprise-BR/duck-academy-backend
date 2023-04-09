@@ -1,32 +1,35 @@
 from api.database.database_base import Session
-from api.base.base_models import PlansModel, PlansDetailsModel, PlansRelationshipModel
+from api.base.base_models import PlansModel
 from api.module.plans_module.plans.dtos.plans_create import PlansCreateDto, PlansUpdateDto
-
-""" for x in session.query( Department, Employee)
-    .filter(Link.department_id == Department.id, Link.employee_id == Employee.id)
-    .order_by(Link.department_id)
-    .all():
-   print ("Department: {} Name: {}".format(x.Department.name, x.Employee.name)) """
+from sqlalchemy import text
 
 class PlansRepository:
     def list(self):
         items = []
         session = Session()
-        query = session.query(PlansRelationshipModel,PlansModel).filter(PlansRelationshipModel.plan_id == PlansModel.id, PlansRelationshipModel.plans_details_id == PlansDetailsModel.id).all()
+        result = session.execute(text("""
+        SELECT
+            plan_id,
+            plans.name as plan,
+            json_agg(json_build_object('id', plans_details.id, 'name', plans_details.name)) AS details
+        from plans_relationship
+        INNER JOIN plans 
+            ON plans_relationship.plan_id = plans.id
+        INNER JOIN plans_details 
+            ON plans_relationship.plans_details_id = plans_details.id
+        GROUP BY plan_id, plan;
+        """)
+        )
 
-        print(query)
-
-        for x in query:
-            print("{}".format(x.PlansModel.name))
+        for row in result:
             items.append({
-                "plan": x.PlansModel.name,
-                "plan_ids": x.PlansRelationshipModel.plans_details_id
+                "plan_id": row[0],
+                "name": row[1],
+                "details": row[2]
             })
 
         return items
         
-    
-    
     def save(self, item: PlansCreateDto):
         session = Session()
         data = PlansModel(name=item.name, description=item.description)

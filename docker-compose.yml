@@ -9,8 +9,25 @@ services:
       POSTGRES_DB: duck_academy
     ports:
       - "5432:5432"
+    networks:
+      - duck_academy
     volumes:
       - db_data:/var/lib/postgresql/data
+  pg_admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'email@gmail.com'
+      PGADMIN_DEFAULT_PASSWORD: '123'
+    ports:
+      - "5433:80"
+    networks:
+      - duck_academy
+    depends_on:
+      - db
+
+networks:
+  duck_academy:
+    driver: bridge
 
 volumes:
   db_data:
